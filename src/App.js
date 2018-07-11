@@ -8,13 +8,13 @@ export class App extends Component {
     super();
     this.state = {
       positions: [],
-      text: "",
+      text:'',
       locations: [],
       activeMarker: {},
       selectedPlace: {},
       showingInfoWindow: false
     };
-    this.onChange = this.onChange.bind(this);
+    this.onChange = this.onChange.bind(this)
     this.removeItem = this.removeItem.bind(this);
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onInfoWindowClose = this.onInfoWindowClose.bind(this);
@@ -24,11 +24,12 @@ export class App extends Component {
     this.renderAutoComplete();
   }
 
-  onChange(e) {
+  onChange(e){
     this.setState({
       text: e.target.value
-    });
+    })
   }
+
 
   removeItem(i) {
     const arrLocations = [...this.state.locations];
@@ -48,8 +49,8 @@ export class App extends Component {
     const autocomplete = new google.maps.places.Autocomplete(this.autocomplete);
     autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
-      const coordinate = place.geometry.location;
       if (!(this.state.locations[length - 1] == place.formatted_address)) {
+        const coordinate = place.geometry.location;
         this.setState({
           text: "",
           positions: [...this.state.positions, coordinate],
@@ -80,7 +81,12 @@ export class App extends Component {
   }
 
   render() {
+    const bounds = new this.props.google.maps.LatLngBounds()
     const { positions, locations } = this.state;
+    if (positions) {
+      for (let i = 0; i < positions.length; i++) {
+        bounds.extend(positions[i]);
+      }}
     return (
       <div className={style.container}>
         <div className={style.box}>
@@ -97,8 +103,9 @@ export class App extends Component {
           <div className={style.map}>
             <Map
               {...this.props}
-              center={positions[length - 1] || { lat: 0, lng: 0 }}
+              initialCenter={{ lat: 0, lng: 0 }}
               centerAroundCurrentLocation={false}
+              bounds={bounds}
             >
               {positions
                 ? positions.map((position, i) => (
