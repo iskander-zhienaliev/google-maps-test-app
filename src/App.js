@@ -49,13 +49,12 @@ export class App extends Component {
     const autocomplete = new google.maps.places.Autocomplete(this.autocomplete);
     autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
-      if (!(this.state.locations[length - 1] == place.formatted_address)) {
-        const coordinate = place.geometry.location;
+      const coordinate = place.geometry;
+      if (!(this.state.locations[length - 1] == place.formatted_address)&&coordinate) {
         this.setState({
           text: "",
-          positions: [...this.state.positions, coordinate],
+          positions: [...this.state.positions, coordinate.location],
           locations: [...this.state.locations, place.formatted_address],
-          pos: coordinate
         });
       } else {
         this.setState({
