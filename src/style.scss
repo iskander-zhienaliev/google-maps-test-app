@@ -14,8 +14,9 @@ $height-blc: 500px;
     width: 100%;
     max-width: 80%;
     padding: 5px;
-    border: 1px solid red;
     text-align: center;
+    border: 3px solid #af75d8;
+    border-radius: 6px;
     .input {
       width: 90%;
       font-size: 1.1em;
@@ -28,7 +29,6 @@ $height-blc: 500px;
       width: 100%;
       height: $height-blc;
       margin-right: $margin-btw/2;
-      border: gray 1px solid;
     }
 
     .map {
@@ -38,13 +38,5 @@ $height-blc: 500px;
       height: $height-blc;
       margin-left: $margin-btw/2;
     }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .box {
-    width: 100%;
-    max-width: 90%;
-    border: 1px solid red;
   }
 }
